@@ -1,0 +1,4 @@
+{
+    "name": "PiHole Domain Tracker",
+    "domains": ["sensor"]
+}
