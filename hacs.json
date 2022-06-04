@@ -1,4 +1,5 @@
 {
     "name": "PiHole Domain Tracker",
+    "render_readme": true,
     "domains": ["sensor"]
 }
