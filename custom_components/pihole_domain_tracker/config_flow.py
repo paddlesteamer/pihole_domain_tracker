@@ -1,4 +1,4 @@
-"""Config flow for mjsxj05cm motion sensor integration."""
+"""Config flow for pihole domain tracker integration."""
 from __future__ import annotations
 
 import logging
@@ -42,7 +42,7 @@ class Validator:
 
         return r.status_code == 200
 
-    async def authenticate(self, token: str) -> bool:
+    async def authenticate(self) -> bool:
         """Test if we can authenticate with the host."""
         payload = {"getAllQueries": "1", "auth": self.token}
 
@@ -63,7 +63,7 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
     if not await hub.connect():
         raise CannotConnect
 
-    if not await hub.authenticate(data[CONF_ACCESS_TOKEN]):
+    if not await hub.authenticate():
         raise InvalidAuth
 
     return {

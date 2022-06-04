@@ -2,8 +2,7 @@
   "domain": "pihole_domain_tracker",
   "name": "PiHole Domain Tracker",
   "config_flow": true,
-  "version": "0.0.1",
-  "documentation": "https://www.home-assistant.io/integrations/pihole_domain_tracker",
+  "version": "0.0.2",
   "requirements": [
     "requests==2.27.1"
   ],
