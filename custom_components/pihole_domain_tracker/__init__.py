@@ -99,6 +99,7 @@ class PiHoleTracker:
         data = {LAST_CHECKED: time.ctime()}
 
         if len(queries) == 0:
+            _LOGGER.debug("No queries found")
             return data
 
         ts = int(queries[-1][0])
