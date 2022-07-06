@@ -88,6 +88,7 @@ class PiHoleTracker:
         )
 
         if r.status_code != 200:
+            _LOGGER.error(f"PiHole returned: {r.status_code}")
             return []
 
         return r.json()["data"]
