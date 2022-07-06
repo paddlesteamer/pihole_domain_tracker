@@ -103,6 +103,8 @@ class PiHoleTracker:
 
         ts = int(queries[-1][0])
 
+        _LOGGER.debug(f"Last query: {ts}, current: {self.timestamp}")
+
         if ts - self.timestamp <= 30:
             return data
 
