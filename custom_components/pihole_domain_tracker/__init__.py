@@ -10,7 +10,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryAuthFailed
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
-from .const import COORDINATOR, DOMAIN, LAST_CHECKED
+from .const import CONF_CLIENT_ADDRESS, COORDINATOR, DOMAIN, LAST_CHECKED
 from homeassistant.const import CONF_ACCESS_TOKEN, CONF_ADDRESS
 
 import logging
@@ -23,7 +23,7 @@ _LOGGER = logging.getLogger(__name__)
 async def async_setup_entry(hass: HomeAssistant, config: ConfigEntry) -> bool:
 
     poller = PiHoleTracker(
-        hass, config.data[CONF_ADDRESS], config.data[CONF_ACCESS_TOKEN]
+        hass, config.data[CONF_ADDRESS], config.data[CONF_ACCESS_TOKEN], config.data[CONF_CLIENT_ADDRESS]
     )
 
     coordinator = ApiCoordinator(hass, poller)
@@ -68,11 +68,12 @@ class ApiCoordinator(DataUpdateCoordinator):
 
 
 class PiHoleTracker:
-    def __init__(self, hass: HomeAssistant, addr: str, token: str) -> None:
+    def __init__(self, hass: HomeAssistant, addr: str, token: str, client: str) -> None:
         self.hass = hass
 
         self.addr = addr
         self.token = token
+        self.client = client
 
         self.timestamp = int(time.time())
 
@@ -81,6 +82,7 @@ class PiHoleTracker:
             "getAllQueries": 1,
             "auth": self.token,
             "domain": "sg.business.smartcamera.api.io.mi.com",
+            "client": self.client,
         }
 
         r = await self.hass.async_add_executor_job(

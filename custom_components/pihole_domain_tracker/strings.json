@@ -6,7 +6,8 @@
         "description": "Enter your PiHole credentials",
         "data": {
           "address": "PiHole Address",
-          "access_token": "PiHole Access Token"
+          "access_token": "PiHole Access Token",
+          "client_address": "Client Address To Track"
         }
       }
     },

@@ -13,7 +13,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.exceptions import HomeAssistantError
 
-from .const import DOMAIN
+from .const import CONF_CLIENT_ADDRESS, DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -21,6 +21,7 @@ STEP_USER_DATA_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_ADDRESS): str,
         vol.Required(CONF_ACCESS_TOKEN): str,
+        vol.Required(CONF_CLIENT_ADDRESS): str,
     }
 )
 
@@ -70,6 +71,7 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
         "title": "PiHole Domain Tracker",
         CONF_ADDRESS: data[CONF_ADDRESS],
         CONF_ACCESS_TOKEN: data[CONF_ACCESS_TOKEN],
+        CONF_CLIENT_ADDRESS: data[CONF_CLIENT_ADDRESS],
     }
 
 
