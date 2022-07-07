@@ -82,7 +82,6 @@ class PiHoleTracker:
             "getAllQueries": 1,
             "auth": self.token,
             "domain": "sg.business.smartcamera.api.io.mi.com",
-            "client": self.client,
         }
 
         r = await self.hass.async_add_executor_job(
@@ -104,7 +103,11 @@ class PiHoleTracker:
             _LOGGER.debug("No queries found")
             return data
 
-        ts = int(queries[-1][0])
+        ts = 0
+        for row in queries[::-1]:
+            if row[3] == self.client:
+                ts = int(row[0])
+                break
 
         _LOGGER.debug(f"Last query: {ts}, current: {self.timestamp}")
 
